@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GameTetris</string>
+    <string name="titulo">Tetris</string>
+    <string name="novo_jogo">Novo Jogo</string>
+    <string name="continuar">Continuar</string>
+    <string name="configurar">Configurar</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="baixo">Baixo</string>
+    <string name="pontos">Pontos</string>
+    <string name="girar">Girar</string>
+    <string name="total">0</string>
+</resources>
