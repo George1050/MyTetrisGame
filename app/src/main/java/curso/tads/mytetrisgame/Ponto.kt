@@ -1,16 +1,17 @@
 package curso.tads.mytetrisgame
 
-open class Ponto {
-    open fun moveDown(){
+class Ponto (var x:Int, var y:Int){
+    fun moveDown(){
+        x++
     }
-    open fun moveRight(){
-
+    fun moveRight(){
+        y++
     }
-    open fun moveLeft(){
-
+    fun moveLeft(){
+        y--
     }
 
-    open fun rotacionar(){
+    fun rotacionar(){
 
     }
 }

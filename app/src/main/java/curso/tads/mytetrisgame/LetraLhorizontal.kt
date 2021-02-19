@@ -1,22 +1,10 @@
 package curso.tads.mytetrisgame
 
-class LetraLhorizontal(linha:Int, coluna:Int):Peca(linha, coluna){
-    var pontos = arrayListOf<Peca>(
-            Peca(linha+1,coluna-1),
-            Peca(linha+1,coluna),
-            Peca(linha+1,coluna+1),
-            Peca(linha,coluna+1)
-    )
+class LetraLhorizontal(linha:Int, coluna:Int):Peca(
+        Ponto(linha+1,coluna-1),
+        Ponto(linha+1,coluna),
+        Ponto(linha+1,coluna+1),
+        Ponto(linha,coluna+1)
+    ){
 
-    override fun moveDown(){
-        pontos.forEach { it.x++ }
-    }
-
-    override fun moveLeft(){
-        pontos.forEach { it.y-- }
-    }
-
-    override fun moveRight(){
-        pontos.forEach { it.y++ }
-    }
 }
