@@ -88,7 +88,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun borda(p: Ponto): Boolean {
-        return p.y == 0 || p.x == LINHA - 1 || p.y == COLUNA - 1
+        return p.y == 0 || p.x == LINHA - 1 || p.y == COLUNA - 1 || p.x == 0
     }
 
     private fun armazenarPosicao(p:Array<Ponto>){
