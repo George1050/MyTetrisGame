@@ -125,31 +125,27 @@ class GameActivity : AppCompatActivity() {
                 //peca.rotacionar()
             }
             is Linha -> {
-                var pontos = peca.rotacionar()
-                if(toLeft(pontos) || toRight(pontos) || toDown(pontos)) {
+                val pontos = peca.rotacionar()
+                if(toLeft(pontos) && toRight(pontos) && toDown(pontos)) {
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
                         it.moveUp()
                     }
                     peca.setOrietacaPeca((peca as Linha).orientacao)
-                }else{
-
                 }
             }
             is Triangulo -> {
-                var pontos = peca.rotacionar()
+                val pontos = peca.rotacionar()
                 if(toLeft(pontos) || toRight(pontos) || toDown(pontos)){
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
                         it.moveUp()
                     }
                     peca.setOrietacaPeca((peca as Triangulo).orientacao)
-                }else{
-
                 }
             }
             is LetraSDireita -> {
-                var pontos = peca.rotacionar()
+                val pontos = peca.rotacionar()
                 if(toLeft(pontos) || toRight(pontos) || toDown(pontos)){
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
@@ -159,7 +155,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
             is LetraLEsquerda -> {
-                var pontos = peca.rotacionar()
+                val pontos = peca.rotacionar()
                 if(toLeft(pontos) || toRight(pontos) || toDown(pontos)){
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
