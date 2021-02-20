@@ -91,14 +91,34 @@ class GameActivity : AppCompatActivity() {
 
     }
 
-    private fun borda(p: Ponto): Boolean {
-        return p.y == 0 || p.x == linha - 1 || p.y == coluna - 1 || p.x == 0
+    private fun tipoPeca(){
+        when((Math.random() * 6).toInt()){
+            0 -> peca = Quadrado(iniciox, inicioy)
+            1 -> peca = Linha(iniciox, inicioy)
+            2 -> peca = Triangulo(iniciox, inicioy)
+            4 -> peca = LetraLEsquerda(iniciox, inicioy)
+            5 -> peca = LetraSDireita(iniciox, inicioy)
+        }
     }
 
     private fun armazenarPosicao(p:Array<Ponto>){
         p.forEach {
             board[it.x][it.y] = 1
         }
+    }
+
+    private fun borda(p: Ponto): Boolean {
+        return p.y == 0 || p.x == linha - 1 || p.y == coluna - 1 || p.x == 0
+    }
+
+    private fun posicaoInvalida(p:Ponto): Boolean {
+        if(
+                (board[p.x][p.y-1] == 1 && board[p.x+1][p.y] == 1) ||
+                (board[p.x][p.y+1] == 1 && board[p.x+1][p.y] == 1) || (board[p.x+1][p.y] == 1)
+        ){
+            return true
+        }
+        return false
     }
 
     private fun toLeft(p:Array<Ponto>): Boolean{
@@ -113,6 +133,15 @@ class GameActivity : AppCompatActivity() {
     private fun toRight(p:Array<Ponto>): Boolean{
         p.forEach {
             if(board[it.x][it.y+1] == 1 || borda(Ponto(it.x, it.y+1))){
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun toDown(p:Array<Ponto>): Boolean{
+        p.forEach {
+            if(borda(Ponto(it.x+1, it.y)) || posicaoInvalida(it)){
                 return false
             }
         }
@@ -164,35 +193,6 @@ class GameActivity : AppCompatActivity() {
                     peca.setOrietacaPeca((peca as LetraLEsquerda).orientacao)
                 }
             }
-        }
-    }
-
-    private fun posicaoInvalida(p:Ponto): Boolean {
-        if(
-                (board[p.x][p.y-1] == 1 && board[p.x+1][p.y] == 1) ||
-                (board[p.x][p.y+1] == 1 && board[p.x+1][p.y] == 1) || (board[p.x+1][p.y] == 1)
-        ){
-            return true
-        }
-        return false
-    }
-
-    private fun toDown(p:Array<Ponto>): Boolean{
-        p.forEach {
-            if(borda(Ponto(it.x+1, it.y)) || posicaoInvalida(it)){
-                return false
-            }
-        }
-        return true
-    }
-
-    private fun tipoPeca(){
-        when((Math.random() * 6).toInt()){
-            0 -> peca = Quadrado(iniciox, inicioy)
-            1 -> peca = Linha(iniciox, inicioy)
-            2 -> peca = Triangulo(iniciox, inicioy)
-            4 -> peca = LetraLEsquerda(iniciox, inicioy)
-            5 -> peca = LetraSDireita(iniciox, inicioy)
         }
     }
 
