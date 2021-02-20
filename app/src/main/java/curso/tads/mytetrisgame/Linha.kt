@@ -1,6 +1,6 @@
 package curso.tads.mytetrisgame
 
-class Linha(linha:Int, coluna:Int, private var orientacao: String = "h"):Peca(
+class Linha(linha:Int, coluna:Int, private var orientacao: String = "horizontal"):Peca(
         Ponto(linha,coluna-2),
         Ponto(linha,coluna-1),
         Ponto(linha,coluna),
@@ -9,21 +9,21 @@ class Linha(linha:Int, coluna:Int, private var orientacao: String = "h"):Peca(
     override fun rotacionar(){
         var p = getPontos()
         when(orientacao){
-                "h" -> {
+                "horizontal" -> {
                     p[0] = Ponto(p[0].x+2, p[0].y+2)
                     p[1] = Ponto(p[1].x+1, p[1].y+1)
                     p[3] = Ponto(p[3].x-1, p[0].y)
-                    orientacao = "v"
+                    orientacao = "vertical"
                     p.forEach {
                         it.moveUp()
                     }
                 }
-                "v" -> {
+                "vertical" -> {
 
                     p[0] = Ponto(p[0].x-2, p[0].y-2)
                     p[1] = Ponto(p[1].x-1, p[1].y-1)
                     p[3] = Ponto(p[3].x+1, p[0].y)
-                    orientacao ="h"
+                    orientacao ="horizontal"
                     p.forEach {
                         it.moveUp()
                     }

@@ -130,10 +130,10 @@ class GameActivity : AppCompatActivity() {
             is Triangulo -> {
                 peca.rotacionar()
             }
-            is LetraShorizontal -> {
+            is LetraSDireita -> {
                 peca.rotacionar()
             }
-            is LetraLhorizontal -> {
+            is LetraLEsquerda -> {
                 peca.rotacionar()
             }
         }
@@ -163,8 +163,8 @@ class GameActivity : AppCompatActivity() {
             0 -> peca = Quadrado(iniciox, inicioy)
             1 -> peca = Linha(iniciox, inicioy)
             2 -> peca = Triangulo(iniciox, inicioy)
-            4 -> peca = LetraLhorizontal(iniciox, inicioy)
-            5 -> peca = LetraShorizontal(iniciox, inicioy)
+            4 -> peca = LetraLEsquerda(iniciox, inicioy)
+            5 -> peca = LetraSDireita(iniciox, inicioy)
         }
     }
 
