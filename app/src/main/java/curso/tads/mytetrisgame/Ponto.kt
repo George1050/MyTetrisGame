@@ -11,7 +11,7 @@ class Ponto (var x:Int, var y:Int){
         y--
     }
 
-    fun rotacionar(){
-
+    fun moveUp(){
+        x--
     }
 }

@@ -8,10 +8,10 @@ import androidx.databinding.DataBindingUtil
 import curso.tads.mytetrisgame.databinding.ActivityGameBinding
 
 class GameActivity : AppCompatActivity() {
-    private val LINHA = 36
-    private val COLUNA = 26
-    private val INICIOX = 1
-    private val INICIOY = 14
+    private val linha = 26
+    private val coluna = 16
+    private val iniciox = 1
+    private val inicioy = 8
     private var jogando = true
     private var velocidade:Long = 300
 
@@ -19,12 +19,12 @@ class GameActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityGameBinding
 
-    var board = Array(LINHA) {
-        Array(COLUNA){0}
+    var board = Array(linha) {
+        Array(coluna){0}
     }
 
-    private var boardView = Array(LINHA){
-        arrayOfNulls<ImageView>(COLUNA)
+    private var boardView = Array(linha){
+        arrayOfNulls<ImageView>(coluna)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,13 +32,13 @@ class GameActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_game)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_game)
         binding.apply {
-            gridboard.rowCount = LINHA
-            gridboard.columnCount = COLUNA
+            gridboard.rowCount = linha
+            gridboard.columnCount = coluna
 
             val inflater = LayoutInflater.from(applicationContext)
 
-            for (i in 0 until LINHA) {
-                for (j in 0 until COLUNA) {
+            for (i in 0 until linha) {
+                for (j in 0 until coluna) {
                     boardView[i][j] = inflater.inflate(R.layout.inflate_image_view, gridboard, false) as ImageView
                     gridboard.addView( boardView[i][j])
                 }
@@ -49,7 +49,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun gameRun(){
         Thread{
-            //var atualPosition = INICIOX
+            //var atualPosition = iniciox
             tipoPeca()
             while(jogando){
                 Thread.sleep(velocidade)
@@ -68,6 +68,10 @@ class GameActivity : AppCompatActivity() {
                     }
                     binding.baixo.setOnClickListener {
                         velocidade = 100
+                    }
+                    binding.girar.setOnClickListener {
+                        girarPeca()
+                        Thread.sleep(300)
                     }
                     //move peça atual
                     if(toDown(peca.getPontos())){
@@ -88,7 +92,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun borda(p: Ponto): Boolean {
-        return p.y == 0 || p.x == LINHA - 1 || p.y == COLUNA - 1 || p.x == 0
+        return p.y == 0 || p.x == linha - 1 || p.y == coluna - 1 || p.x == 0
     }
 
     private fun armazenarPosicao(p:Array<Ponto>){
@@ -115,7 +119,27 @@ class GameActivity : AppCompatActivity() {
         return true
     }
 
-    private fun posicaoValida(p:Ponto): Boolean {
+    private fun girarPeca(){
+        when(peca){
+            is Quadrado -> {
+                //peca.rotacionar()
+            }
+            is Linha -> {
+                peca.rotacionar()
+            }
+            is Triangulo -> {
+                peca.rotacionar()
+            }
+            is LetraShorizontal -> {
+                peca.rotacionar()
+            }
+            is LetraLhorizontal -> {
+                peca.rotacionar()
+            }
+        }
+    }
+
+    private fun posicaoInvalida(p:Ponto): Boolean {
         if(
                 (board[p.x][p.y-1] == 1 && board[p.x+1][p.y] == 1) ||
                 (board[p.x][p.y+1] == 1 && board[p.x+1][p.y] == 1) || (board[p.x+1][p.y] == 1)
@@ -127,7 +151,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun toDown(p:Array<Ponto>): Boolean{
         p.forEach {
-            if(borda(Ponto(it.x+1, it.y)) || posicaoValida(it)){
+            if(borda(Ponto(it.x+1, it.y)) || posicaoInvalida(it)){
                 return false
             }
         }
@@ -136,17 +160,17 @@ class GameActivity : AppCompatActivity() {
 
     private fun tipoPeca(){
         when((Math.random() * 6).toInt()){
-            0 -> peca = Quadrado(INICIOX, INICIOY)
-            1 -> peca = Linha(INICIOX, INICIOY)
-            2 -> peca = Triangulo(INICIOX, INICIOY)
-            4 -> peca = LetraLhorizontal(INICIOX, INICIOY)
-            5 -> peca = LetraShorizontal(INICIOX, INICIOY)
+            0 -> peca = Quadrado(iniciox, inicioy)
+            1 -> peca = Linha(iniciox, inicioy)
+            2 -> peca = Triangulo(iniciox, inicioy)
+            4 -> peca = LetraLhorizontal(iniciox, inicioy)
+            5 -> peca = LetraShorizontal(iniciox, inicioy)
         }
     }
 
     private fun limpaTela(){
-        for (i in 0 until LINHA) {
-            for (j in 0 until COLUNA) {
+        for (i in 0 until linha) {
+            for (j in 0 until coluna) {
                 if(borda(Ponto(i, j))){
                     boardView[i][j]!!.setImageResource(R.drawable.gray)
                 } else if (board[i][j] == 1) {
