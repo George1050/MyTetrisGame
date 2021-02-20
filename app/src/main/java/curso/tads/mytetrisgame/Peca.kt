@@ -19,10 +19,17 @@ open class Peca(pontoA: Ponto,pontoB: Ponto, pontoC: Ponto, pontoD: Ponto) {
         pontos.forEach { it.moveLeft() }
     }
 
-    open fun rotacionar(){
+    open fun rotacionar():Array<Ponto>{
+        return arrayOf()
     }
+
+    open fun setOrietacaPeca(o:Int){}
 
     fun getPontos(): Array<Ponto> {
         return pontos
+    }
+
+    fun setPontos(p:Array<Ponto>){
+        pontos = p
     }
 }

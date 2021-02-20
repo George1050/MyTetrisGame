@@ -1,57 +1,49 @@
 package curso.tads.mytetrisgame
 
-class LetraLEsquerda(linha:Int, coluna:Int, var orientacao:String = "horizontalCima"):Peca(
+class LetraLEsquerda(linha:Int, coluna:Int, var orientacao:Int = 1):Peca(
         Ponto(linha+1,coluna-1),
         Ponto(linha+1,coluna),
         Ponto(linha+1,coluna+1),
         Ponto(linha,coluna+1)
     ){
 
-    override fun rotacionar() {
+    override fun rotacionar():Array<Ponto> {
         var p = getPontos()
         when (orientacao){
-            "horizontalCima" -> {
+            1 -> {
                 //Está na Horizontal Cima
-                p[1].moveDown()
-                p[1].moveRight()
-                p[0].moveDown()
-                p[0].moveRight()
-                p[0].moveRight()
-                p[0].moveRight()
-                p.forEach {
-                    it.moveUp()
-                }
-                orientacao = "verticaDireita"
-
+                //orientacao = 2
+                return arrayOf(Ponto(p[0].x+1,p[0].y+3), Ponto(p[1].x+1, p[1].y+1), p[2],p[3])
             }
-            "verticaDireita" -> {
+            2 -> {
                 //Está na Horizontal Cima
-                p[3].moveDown()
-                p[3].moveLeft()
-                p[1].moveLeft()
-                p[0].moveUp()
-                p.forEach {
-                    it.moveUp()
-                }
-                orientacao = "horizontalBaixo"
+                //orientacao = 3
+                return arrayOf(Ponto(p[0].x-1,p[0].y), Ponto(p[1].x, p[1].y-1),p[2], Ponto(p[3].x+1, p[3].y-1))
             }
-            "horizontalBaixo" -> {
-                p[1].moveRight()
-                p[0].moveDown()
-                p[0].moveDown()
-                p[0].moveLeft()
-                orientacao = "verticalEsquerda"
+            3 -> {
+                //orientacao = 4
+                return arrayOf(Ponto(p[0].x+2, p[0].y-1), Ponto(p[1].x, p[1].y+1), p[2],p[3])
             }
-            "verticalEsquerda" -> {
-                p[3].moveUp()
-                p[3].moveRight()
-                p[1].moveLeft()
-                p[1].moveUp()
-                p[0].moveLeft()
-                p[0].moveLeft()
-                p[0].moveUp()
-                p[0].moveUp()
-                orientacao = "horizontalCima"
+            4 -> {
+                //orientacao = 1
+                return arrayOf(Ponto(p[0].x-2, p[0].y-2), Ponto(p[1].x-1, p[1].y-1), p[2], Ponto(p[3].x-1, p[3].y+1))
+            }
+        }
+        return arrayOf()
+    }
+    override fun setOrietacaPeca(o:Int){
+        when(o){
+            1 -> {
+                orientacao = 2
+            }
+            2 -> {
+                orientacao = 3
+            }
+            3 -> {
+                orientacao = 4
+            }
+            4 -> {
+                orientacao = 1
             }
         }
     }
