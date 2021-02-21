@@ -1,11 +1,11 @@
 package curso.tads.mytetrisgame.modeloPeca
 
-class LetraSDireita(linha:Int, coluna:Int, var orientacao:Int = 1): Peca(
-        Ponto(linha,coluna+1),
+class LetraSEsquerda(linha:Int, coluna:Int, var orientacao:Int = 1): Peca(
+        Ponto(linha,coluna-1),
         Ponto(linha,coluna),
         Ponto(linha+1,coluna),
-        Ponto(linha+1,coluna-1)
-    ){
+        Ponto(linha+1,coluna+1)
+){
     override fun rotacionar():Array<Ponto> {
         val p = getPontos()
         when (orientacao) {
@@ -15,7 +15,7 @@ class LetraSDireita(linha:Int, coluna:Int, var orientacao:Int = 1): Peca(
                         Ponto(p[0].x+1, p[0].y),
                         Ponto(p[1].x, p[1].y),
                         Ponto(p[2].x, p[2].y),
-                        Ponto(p[3].x+1, p[3].y+2),
+                        Ponto(p[3].x+1, p[3].y-2),
                 )
             }
             2 -> {
@@ -24,7 +24,7 @@ class LetraSDireita(linha:Int, coluna:Int, var orientacao:Int = 1): Peca(
                         Ponto(p[0].x-1, p[0].y),
                         Ponto(p[1].x, p[1].y),
                         Ponto(p[2].x, p[2].y),
-                        Ponto(p[3].x-1, p[3].y-2),
+                        Ponto(p[3].x-1, p[3].y+2),
                 )
             }
         }
