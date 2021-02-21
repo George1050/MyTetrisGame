@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import curso.tads.mytetrisgame.databinding.ActivityGameBinding
 import curso.tads.mytetrisgame.modeloPeca.*
@@ -110,7 +111,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun borda(p: Ponto): Boolean {
-        if(p.y <= 0 || p.x >= linha - 1 || p.y >= coluna - 1 || p.y == 0){
+        if(p.y < 1 || p.x >= linha - 1 || p.y > coluna - 2 || p.x < 1){
             return true
         }
         return false
@@ -160,42 +161,50 @@ class GameActivity : AppCompatActivity() {
             }
             is Linha -> {
                 val pontos = peca.rotacionar()
-                if(toLeft(pontos) && toRight(pontos) && toDown(pontos)) {
+                if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/) {
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
                         it.moveUp()
                     }
                     peca.setOrietacaPeca((peca as Linha).orientacao)
+                }else{
+                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
                 }
             }
             is Triangulo -> {
                 val pontos = peca.rotacionar()
-                if(toLeft(pontos) || toRight(pontos) || toDown(pontos)){
+                if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/){
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
                         it.moveUp()
                     }
                     peca.setOrietacaPeca((peca as Triangulo).orientacao)
+                }else{
+                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
                 }
             }
             is LetraSDireita -> {
                 val pontos = peca.rotacionar()
-                if(toLeft(pontos) || toRight(pontos) || toDown(pontos)){
+                if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/){
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
                         it.moveUp()
                     }
                     peca.setOrietacaPeca((peca as LetraSDireita).orientacao)
+                }else{
+                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
                 }
             }
             is LetraLEsquerda -> {
                 val pontos = peca.rotacionar()
-                if(toLeft(pontos) || toRight(pontos) || toDown(pontos)){
+                if (toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/) {
                     peca.setPontos(pontos)
                     peca.getPontos().forEach {
                         it.moveUp()
                     }
                     peca.setOrietacaPeca((peca as LetraLEsquerda).orientacao)
+                } else {
+                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -222,7 +231,7 @@ class GameActivity : AppCompatActivity() {
             }
         }catch (e:ArrayIndexOutOfBoundsException ) {
             //se a peça passou das bordas eu vou parar o jogo
-            jogando = false
+            //jogando = false
         }
     }
 }
