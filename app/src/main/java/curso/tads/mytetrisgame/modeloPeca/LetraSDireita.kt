@@ -1,6 +1,6 @@
-package curso.tads.mytetrisgame
+package curso.tads.mytetrisgame.modeloPeca
 
-class LetraSDireita(linha:Int, coluna:Int, var orientacao:Int = 1):Peca(
+class LetraSDireita(linha:Int, coluna:Int, var orientacao:Int = 1): Peca(
         Ponto(linha,coluna),
         Ponto(linha,coluna+1),
         Ponto(linha+1,coluna),

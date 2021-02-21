@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import curso.tads.mytetrisgame.databinding.ActivityGameBinding
+import curso.tads.mytetrisgame.modeloPeca.*
 
 class GameActivity : AppCompatActivity() {
     private val linha = 26
@@ -111,7 +112,7 @@ class GameActivity : AppCompatActivity() {
         return p.y == 0 || p.x == linha - 1 || p.y == coluna - 1 || p.x == 0
     }
 
-    private fun posicaoInvalida(p:Ponto): Boolean {
+    private fun posicaoInvalida(p: Ponto): Boolean {
         if(
                 (board[p.x][p.y-1] == 1 && board[p.x+1][p.y] == 1) ||
                 (board[p.x][p.y+1] == 1 && board[p.x+1][p.y] == 1) || (board[p.x+1][p.y] == 1)

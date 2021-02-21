@@ -17,7 +17,7 @@
         android:fontFamily="@font/aclonica"
         android:text="@string/titulo"
         android:textColor="#FFFFFF"
-        android:textSize="46sp"
+        android:textSize="74sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +32,7 @@
         android:layout_marginTop="30dp"
         android:text="@string/novo_jogo"
         android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -44,6 +45,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/continuar"
         android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/novo"
         app:layout_constraintStart_toStartOf="@+id/novo"
         app:layout_constraintTop_toBottomOf="@+id/novo" />
@@ -56,6 +58,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/configurar"
         android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/continuar"
         app:layout_constraintStart_toStartOf="@+id/continuar"
         app:layout_constraintTop_toBottomOf="@+id/continuar" />

@@ -1,6 +1,6 @@
-package curso.tads.mytetrisgame
+package curso.tads.mytetrisgame.modeloPeca
 
-open class Peca(pontoA: Ponto,pontoB: Ponto, pontoC: Ponto, pontoD: Ponto) {
+open class Peca(pontoA: Ponto, pontoB: Ponto, pontoC: Ponto, pontoD: Ponto) {
     private var pontos = arrayOf(
             Ponto(pontoA.x, pontoA.y),
             Ponto(pontoB.x, pontoB.y),
