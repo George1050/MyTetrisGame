@@ -33,6 +33,7 @@ class LetraLEsquerda(linha:Int, coluna:Int, var orientacao:Int = 1): Peca(
                         Ponto(p[3].x+1, p[3].y-1))
             }
             3 -> {
+                //Está na Vertical
                 //orientacao = 4
                 return arrayOf(
                         Ponto(p[0].x+2, p[0].y-1),

@@ -16,4 +16,7 @@
     <string name="f_cil">Fácil</string>
     <string name="config">Configurações do Jogo</string>
     <string name="dificuldades">Dificuldade</string>
+    <string name="confimar">OK</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="facil">Fácil</string>
 </resources>

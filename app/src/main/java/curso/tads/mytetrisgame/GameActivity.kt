@@ -78,10 +78,12 @@ class GameActivity : AppCompatActivity() {
                     //move peça atual
                     if(toDown(peca.getPontos())){
                         peca.moveDown()
+                        pontuar()
                     }else{
                         armazenarPosicao(peca.getPontos())
                         tipoPeca()
                         velocidade = 300
+                        pontuar()
                     }
                     //print peça
                     exibirPeca()
@@ -208,6 +210,46 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun pontuar(){
+        if(ordenarTabuleiro(checarLinhaCompleta())){
+            var total = binding.total.text.toString()
+            var somaTotal = total.toInt()+100
+            binding.total.text = somaTotal.toString()
+        }
+    }
+
+    private fun ordenarTabuleiro(linhaCompleta:Int):Boolean{
+        if(linhaCompleta == 0){
+            return false
+        }
+        var i = linhaCompleta
+        while (i>0){
+            for (j in 1 until coluna-1){
+                board[i][j] = board[i-1][j]
+                board[i-1][j] = 0
+            }
+            i--
+        }
+        return true
+    }
+
+    private fun checarLinhaCompleta():Int{
+        var countPeca = 0
+        for (i in 1 until linha-1) {
+            for (j in 1 until coluna-1) {
+                if(board[i][j] == 1){
+                    countPeca++
+                }
+            }
+            if(countPeca == coluna-2){
+                return i
+            }else{
+                countPeca = 0
+            }
+        }
+        return 0
     }
 
     private fun limpaTela(){
