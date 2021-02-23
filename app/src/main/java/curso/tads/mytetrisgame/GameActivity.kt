@@ -1,5 +1,6 @@
 package curso.tads.mytetrisgame
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -95,6 +96,8 @@ class GameActivity : AppCompatActivity() {
                     //move peça atual
                     if(topo(atualPeca.getPontos())){
                         jogando = false
+                        val i = Intent(this, GameOverActivity::class.java)
+                        startActivity(i)
                     }else if(toDown(atualPeca.getPontos())){
                         atualPeca.moveDown()
                         pontuar()
@@ -119,7 +122,7 @@ class GameActivity : AppCompatActivity() {
     private fun exibirProximaPeca(){
         for (i in 0 until 4) {
             for (j in 0 until 6) {
-                pecaView[i][j]!!.setImageResource(R.drawable.gray)
+                pecaView[i][j]!!.setImageResource(R.drawable.semfundo)
             }
         }
         try {

@@ -18,4 +18,10 @@
     <string name="confimar">OK</string>
     <string name="cancelar">Cancelar</string>
     <string name="facil">Fácil</string>
+    <string name="game_over">Game Over</string>
+    <string name="pontuacao">Pontuação:</string>
+    <string name="record">Record:</string>
+    <string name="record_pontos">0</string>
+    <string name="novo_record">Novo Record!</string>
+    <string name="sair">Sair</string>
 </resources>

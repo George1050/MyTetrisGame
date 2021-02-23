@@ -5,52 +5,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#2B2B2B"
-        android:gravity="top"
+        android:gravity="center|top"
         android:orientation="vertical"
         tools:context=".GameActivity">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="105dp"
-            android:layout_weight="1">
-
-            <GridLayout
-                android:id="@+id/newPeca"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/pausa"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.78"
-                app:layout_constraintStart_toEndOf="@+id/pausa"
-                app:layout_constraintTop_toTopOf="@+id/pontos">
-
-            </GridLayout>
-
-            <Button
-                android:id="@+id/pausa"
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/pausa"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0">
 
             <TextView
                 android:id="@+id/pontos"
-                android:layout_width="52dp"
-                android:layout_height="19dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
                 android:layout_weight="1"
                 android:text="@string/pontos"
                 android:textAlignment="textStart"
                 android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toTopOf="@+id/pausa"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,35 +38,64 @@
                 android:id="@+id/total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/total"
                 android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toTopOf="@+id/pausa"
-                app:layout_constraintStart_toEndOf="@+id/pontos"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/pontos"
+                app:layout_constraintStart_toEndOf="@+id/pontos" />
 
+            <GridLayout
+                android:id="@+id/newPeca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </GridLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="477dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/pausa"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/pausa"
+                app:layout_constraintBottom_toTopOf="@+id/gridboard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <GridLayout
                 android:id="@+id/gridboard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             </GridLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="157dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="0">
 
             <Button
                 android:id="@+id/left"
@@ -119,11 +128,11 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:text="@string/baixo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/right"
-                app:layout_constraintStart_toEndOf="@+id/left" />
+                app:layout_constraintStart_toEndOf="@+id/left"
+                app:layout_constraintTop_toBottomOf="@+id/right" />
 
             <Button
                 android:id="@+id/girar"
@@ -131,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/girar"
-                app:layout_constraintBottom_toTopOf="@+id/baixo"
+                app:layout_constraintBottom_toTopOf="@+id/left"
                 app:layout_constraintEnd_toStartOf="@+id/right"
                 app:layout_constraintStart_toEndOf="@+id/left"
                 app:layout_constraintTop_toTopOf="parent" />
