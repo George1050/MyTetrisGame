@@ -17,6 +17,18 @@
             android:layout_height="105dp"
             android:layout_weight="1">
 
+            <GridLayout
+                android:id="@+id/newPeca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/pausa"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.78"
+                app:layout_constraintStart_toEndOf="@+id/pausa"
+                app:layout_constraintTop_toTopOf="@+id/pontos">
+
+            </GridLayout>
+
             <Button
                 android:id="@+id/pausa"
                 style="@style/Widget.AppCompat.Button.Small"
@@ -52,11 +64,12 @@
                 app:layout_constraintBottom_toTopOf="@+id/pausa"
                 app:layout_constraintStart_toEndOf="@+id/pontos"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="477dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
@@ -72,7 +85,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="166dp"
+            android:layout_height="157dp"
             android:layout_weight="1">
 
             <Button

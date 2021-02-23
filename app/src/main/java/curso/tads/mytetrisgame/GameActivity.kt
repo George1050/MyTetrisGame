@@ -31,6 +31,9 @@ class GameActivity : AppCompatActivity() {
     private var boardView = Array(configAtual.linha){
         arrayOfNulls<ImageView>(configAtual.coluna)
     }
+    private var pecaView = Array(6){
+        arrayOfNulls<ImageView>(12)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +43,22 @@ class GameActivity : AppCompatActivity() {
             gridboard.rowCount = configAtual.linha
             gridboard.columnCount = configAtual.coluna
 
+            newPeca.rowCount = 4
+            newPeca.columnCount = 6
+
             val inflater = LayoutInflater.from(applicationContext)
 
             for (i in 0 until configAtual.linha) {
                 for (j in 0 until configAtual.coluna) {
                     boardView[i][j] = inflater.inflate(R.layout.inflate_image_view, gridboard, false) as ImageView
-                    gridboard.addView( boardView[i][j])
+                    gridboard.addView(boardView[i][j])
+                }
+            }
+
+            for (i in 0 until 4) {
+                for (j in 0 until 6) {
+                    pecaView[i][j] = inflater.inflate(R.layout.inflate_image_view, newPeca, false) as ImageView
+                    newPeca.addView(pecaView[i][j])
                 }
             }
         }
@@ -91,16 +104,31 @@ class GameActivity : AppCompatActivity() {
                         proximaPeca = tipoPeca()
                         configAtual.velocidade = 300
                         pontuar()
+
                     }
                     //print peça
                     exibirPeca(atualPeca)
-                    //exibirPeca(proximaPeca)
-
+                    exibirProximaPeca()
                 }
             }
             //Toast.makeText(applicationContext, "Saiu do laço!", Toast.LENGTH_SHORT).show()
         }.start()
 
+    }
+
+    private fun exibirProximaPeca(){
+        for (i in 0 until 4) {
+            for (j in 0 until 6) {
+                pecaView[i][j]!!.setImageResource(R.drawable.gray)
+            }
+        }
+        try {
+            proximaPeca.getPontos().forEach {
+                pecaView[it.x][it.y-6]!!.setImageResource(R.drawable.white)
+            }
+        }catch (e:ArrayIndexOutOfBoundsException){
+            Toast.makeText(this, "Saiu da area da matriz", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setConfigGame(){
@@ -311,7 +339,7 @@ class GameActivity : AppCompatActivity() {
             p.getPontos().forEach {
                 boardView[it.x][it.y]!!.setImageResource(R.drawable.white)
             }
-        }catch (e:ArrayIndexOutOfBoundsException ) {
+        }catch (e:ArrayIndexOutOfBoundsException) {
             //se a peça passou das bordas eu vou parar o jogo
             jogando = false
         }

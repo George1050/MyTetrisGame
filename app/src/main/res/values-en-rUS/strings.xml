@@ -14,10 +14,9 @@
     <string name="pausa">| |</string>
     <string name="dificil">Hard</string>
     <string name="medio">Medium</string>
-    <string name="facil">Ease</string>
+    <string name="facil">Easy</string>
     <string name="config">Game Settings</string>
     <string name="dificuldades">Difficulty</string>
-    <string name="f_cil">Ease</string>
     <string name="confimar">OK</string>
     <string name="cancelar">Cancel</string>
 </resources>
