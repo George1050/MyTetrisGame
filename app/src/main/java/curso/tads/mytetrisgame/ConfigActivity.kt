@@ -7,15 +7,15 @@ import androidx.databinding.DataBindingUtil
 import curso.tads.mytetrisgame.databinding.ActivityConfigBinding
 
 class ConfigActivity : AppCompatActivity() {
-    lateinit var binding:ActivityConfigBinding
-    var dificuldade :String = ""
+    private lateinit var binding:ActivityConfigBinding
+    private var dificuldade :String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_config)
 
         val config = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-        dificuldade= config.getString("dificuldade","default").toString()
+        dificuldade= config.getString("dificuldade","medio").toString()
 
         inserirDificuldadeSelecionada()
 
@@ -26,12 +26,13 @@ class ConfigActivity : AppCompatActivity() {
                         dificuldade = "facil"
                     }
                     medio.id -> {
-                        dificuldade = "Medio"
+                        dificuldade = "medio"
                     }
                     dificil.id -> {
-                        dificuldade = "Dificil"
+                        dificuldade = "dificil"
                     }
                 }
+                finish()
             }
         }
     }
@@ -41,27 +42,28 @@ class ConfigActivity : AppCompatActivity() {
 
         val config =getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         val editor = config.edit()
-        editor.putString("dificuldade",dificuldade)
-        editor.commit()
+        editor.putString("dificuldade",dificuldade).apply()
     }
 
     private  fun inserirDificuldadeSelecionada(){
         binding.apply {
-            if(dificuldade == "facil"){
-                facil.isChecked = true
-                medio.isChecked = false
-                dificil.isChecked = false
-            }
-            else if(dificuldade == "dificil"){
-                facil.isChecked = false
-                medio.isChecked = false
-                dificil.isChecked = true
-            }
-            else {
-                facil.isChecked = false
-                medio.isChecked = true
-                dificil.isChecked = false
+            when (dificuldade) {
+                "facil" -> {
+                    facil.isChecked = true
+                    medio.isChecked = false
+                    dificil.isChecked = false
+                }
+                "dificil" -> {
+                    facil.isChecked = false
+                    medio.isChecked = false
+                    dificil.isChecked = true
+                }
+                else -> {
+                    facil.isChecked = false
+                    medio.isChecked = true
+                    dificil.isChecked = false
 
+                }
             }
         }
     }

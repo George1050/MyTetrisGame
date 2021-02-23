@@ -24,13 +24,12 @@ class LetraSDireita(linha:Int, coluna:Int, var orientacao:Int = 1): Peca(
             }
             2 -> {
                 //Está na Vertical Direita -> Horizontal baixo
-                val tempPeca = arrayOf(
+                return arrayOf(
                         Ponto(p[0].x-1, p[0].y),
                         Ponto(p[1].x, p[1].y),
                         Ponto(p[2].x, p[2].y),
                         Ponto(p[3].x-1, p[3].y-2),
                 )
-                return tempPeca
             }
         }
         return arrayOf()
