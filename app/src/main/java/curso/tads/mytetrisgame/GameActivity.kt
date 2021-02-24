@@ -38,7 +38,7 @@ class GameActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_game)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_game)
         binding.apply {
             gridboard.rowCount = configAtual.linha
@@ -96,7 +96,11 @@ class GameActivity : AppCompatActivity() {
                     //move peça atual
                     if(topo(atualPeca.getPontos())){
                         jogando = false
+
                         val i = Intent(this, GameOverActivity::class.java)
+                        i.putExtra("pontuacao", binding.total.text.toString())
+
+                        finish()
                         startActivity(i)
                     }else if(toDown(atualPeca.getPontos())){
                         atualPeca.moveDown()
@@ -117,6 +121,10 @@ class GameActivity : AppCompatActivity() {
             //Toast.makeText(applicationContext, "Saiu do laço!", Toast.LENGTH_SHORT).show()
         }.start()
 
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 
     private fun exibirProximaPeca(){

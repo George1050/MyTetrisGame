@@ -34,6 +34,9 @@ class ConfigActivity : AppCompatActivity() {
                 }
                 finish()
             }
+            cancelar.setOnClickListener {
+                finish()
+            }
         }
     }
 
