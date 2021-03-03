@@ -1,5 +1,6 @@
 package curso.tads.mytetrisgame
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,12 +12,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.novo.setOnClickListener {
             val i = Intent(this, GameActivity::class.java)
+            i.putExtra("continuar", false)
             startActivity(i)
+        }
+
+        binding.continuar.setOnClickListener {
+            val continuar = intent.getBooleanExtra("continuar", false)
+            if(continuar){
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
         }
         binding.configurar.setOnClickListener {
             val i = Intent(this, ConfigActivity::class.java)
