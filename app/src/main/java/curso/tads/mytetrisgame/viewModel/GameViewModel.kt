@@ -10,7 +10,8 @@ class GameViewModel: ViewModel() {
     var tabuleiro = Array(linha){
         Array(coluna){0}
     }
-    var ultimaPeca: Peca = Peca(Ponto(0,0),Ponto(0,0),Ponto(0,0),Ponto(0,0))
+    var peca: Peca = Peca(Ponto(0,0),Ponto(0,0),Ponto(0,0),Ponto(0,0))
+    var proximaPeca: Peca = Peca(Ponto(0,0),Ponto(0,0),Ponto(0,0),Ponto(0,0))
     var pontos = "0"
     var continuar = false
 }

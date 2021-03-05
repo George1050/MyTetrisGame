@@ -21,15 +21,12 @@ class GameActivity : AppCompatActivity() {
     private val iniciox = 1
     private val inicioy = 8
     private var jogando = true
-    private var REQUEST_CODE = 1
+    private var requestCode = 1
 
     inner class Configuracoes (var velocidade:Long, var linha:Int, var coluna:Int)
-    private var configAtual = Configuracoes(300,20,16)
+    private var configAtual: Configuracoes = Configuracoes(300,20,16)
 
     private lateinit var gameViewModel: GameViewModel
-
-    private lateinit var proximaPeca: Peca
-    private lateinit var peca: Peca
 
     private var boardView = Array(configAtual.linha){
         arrayOfNulls<ImageView>(configAtual.coluna)
@@ -67,43 +64,32 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
-        if(gameViewModel.continuar){
-            jogando = true
-        }
         gameRun()
     }
 
-    override fun onPause() {
-        super.onPause()
-        jogando = false
-    }
-
     private fun gameRun(){
+        if(gameViewModel.continuar){
+            gameViewModel.continuar = false
+        }else{
+            tipoPeca().also { gameViewModel.peca = it }
+            tipoPeca().also { gameViewModel.proximaPeca = it }
+        }
         Thread{
             //Pega as configurações padrão ou a que o úsuario escolheu
             setConfigGame()
-            if(gameViewModel.continuar){
-                peca = gameViewModel.ultimaPeca
-                proximaPeca = tipoPeca()
-                Log.i("TEST", "ENTROY NA CONDIÇÃO")
-            }else{
-                this.peca = tipoPeca()
-                proximaPeca = tipoPeca()
-            }
-
             while(jogando){
                 Thread.sleep(configAtual.velocidade)
                 runOnUiThread {
                     limpaTela()
                     binding.left.setOnClickListener {
-                        if(toLeft(peca.getPontos())){
-                            peca.moveLeft()
+                        if(toLeft(gameViewModel.peca.getPontos())){
+                            gameViewModel.peca.moveLeft()
                         }
                     }
 
                     binding.right.setOnClickListener {
-                        if(toRight(peca.getPontos())){
-                            peca.moveRight()
+                        if(toRight(gameViewModel.peca.getPontos())){
+                            gameViewModel.peca.moveRight()
                         }
                     }
 
@@ -113,7 +99,7 @@ class GameActivity : AppCompatActivity() {
 
                     binding.girar.setOnClickListener {
                         girarPeca()
-                        Thread.sleep(300)
+                        Thread.sleep(200)
                     }
 
                     binding.pausa.setOnClickListener {
@@ -122,34 +108,32 @@ class GameActivity : AppCompatActivity() {
 
                     //Verifica se a peça atual chegou no topo, chama a activity gameover
                     when {
-                        topo(peca.getPontos()) -> {
-                            jogando = false
+                        topo(gameViewModel.peca.getPontos()) -> {
+                            this.jogando = false
                             intent = Intent(this, GameOverActivity::class.java)
                             val pontos = binding.total.text.toString().toInt()
                             intent.putExtra("pontuacao", pontos.toString())
-
                             verificarRecord(pontos)
-
                             finish()
                             startActivity(intent)
                         }
                         //Se a peça pode descer
-                        toDown(peca.getPontos()) -> {
-                            peca.moveDown()
+                        toDown(gameViewModel.peca.getPontos()) -> {
+                            gameViewModel.peca.moveDown()
                             //verifica se alguma linha está completa
                             pontuar()
                         }
                         //Senão, armazena a posição atual e cria novas peças
                         else -> {
-                            armazenarPosicao(peca.getPontos())
-                            peca = proximaPeca
-                            proximaPeca = tipoPeca()
+                            armazenarPosicao(gameViewModel.peca.getPontos())
+                            gameViewModel.peca = gameViewModel.proximaPeca
+                            gameViewModel.proximaPeca = tipoPeca()
                             configAtual.velocidade = 300
                             pontuar()
                         }
                     }
                     //print peça
-                    exibirPeca(peca)
+                    exibirPeca()
                     exibirProximaPeca()
                 }
             }
@@ -160,9 +144,9 @@ class GameActivity : AppCompatActivity() {
         gameViewModel.pontos = binding.total.text.toString()
         gameViewModel.continuar = true
 
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("continuar", true)
-        startActivityForResult(intent, REQUEST_CODE)
+        val i = Intent(this, MainActivity::class.java)
+        i.putExtra("continuar", true)
+        startActivityForResult(i, requestCode)
     }
 
     private fun verificarRecord(pontos: Int) {
@@ -170,7 +154,6 @@ class GameActivity : AppCompatActivity() {
         if (pref.getInt("record", 0) < pontos) {
             pref.edit().putInt("record", pontos).apply()
         }
-
     }
 
     private fun exibirProximaPeca(){
@@ -180,7 +163,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
         try {
-            proximaPeca.getPontos().forEach {
+            gameViewModel.proximaPeca.getPontos().forEach {
                 pecaView[it.x][it.y-6]!!.setImageResource(R.drawable.white)
             }
         }catch (e:ArrayIndexOutOfBoundsException){
@@ -190,7 +173,6 @@ class GameActivity : AppCompatActivity() {
 
     private fun setConfigGame(){
         val pref: SharedPreferences = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-        //Toast.makeText(this, dificuldade, Toast.LENGTH_SHORT).show()
         when (pref.getString("dificuldade", "medio").toString()) {
             "facil" -> {
                 configAtual.velocidade = 420
@@ -277,56 +259,36 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun girarPeca(){
-        when(peca){
+        when(gameViewModel.peca){
             is Quadrado -> {
                 //peca.rotacionar()
             }
             is Linha -> {
-                val pontos = peca.rotacionar()
+                val pontos = gameViewModel.peca.rotacionar()
                 if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/) {
-                    peca.setPontos(pontos)
-                    peca.getPontos().forEach {
-                        it.moveUp()
-                    }
-                    peca.setOrietacaPeca((peca as Linha).orientacao)
-                }else{
-                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
+                    gameViewModel.peca.setPontos(pontos)
+                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as Linha).orientacao)
                 }
             }
             is Triangulo -> {
-                val pontos = peca.rotacionar()
+                val pontos = gameViewModel.peca.rotacionar()
                 if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/){
-                    peca.setPontos(pontos)
-                    peca.getPontos().forEach {
-                        it.moveUp()
-                    }
-                    peca.setOrietacaPeca((peca as Triangulo).orientacao)
-                }else{
-                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
+                    gameViewModel.peca.setPontos(pontos)
+                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as Triangulo).orientacao)
                 }
             }
             is LetraSDireita -> {
-                val pontos = peca.rotacionar()
+                val pontos = gameViewModel.peca.rotacionar()
                 if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/){
-                    peca.setPontos(pontos)
-                    peca.getPontos().forEach {
-                        it.moveUp()
-                    }
-                    peca.setOrietacaPeca((peca as LetraSDireita).orientacao)
-                }else{
-                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
+                    gameViewModel.peca.setPontos(pontos)
+                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as LetraSDireita).orientacao)
                 }
             }
             is LetraLEsquerda -> {
-                val pontos = peca.rotacionar()
+                val pontos = gameViewModel.peca.rotacionar()
                 if (toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/) {
-                    peca.setPontos(pontos)
-                    peca.getPontos().forEach {
-                        it.moveUp()
-                    }
-                    peca.setOrietacaPeca((peca as LetraLEsquerda).orientacao)
-                } else {
-                    Toast.makeText(this, "Bloqueou", Toast.LENGTH_SHORT).show()
+                    gameViewModel.peca.setPontos(pontos)
+                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as LetraLEsquerda).orientacao)
                 }
             }
         }
@@ -390,9 +352,9 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    private fun exibirPeca(p:Peca){
+    private fun exibirPeca(){
         try {
-            p.getPontos().forEach {
+            gameViewModel.peca.getPontos().forEach {
                 boardView[it.x][it.y]!!.setImageResource(R.drawable.white)
             }
         }catch (e:ArrayIndexOutOfBoundsException) {
@@ -400,4 +362,19 @@ class GameActivity : AppCompatActivity() {
             jogando = false
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        jogando = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(gameViewModel.continuar){
+            Log.i("TESTE", "continuando")
+            jogando = true
+            gameRun()
+        }
+    }
 }
+

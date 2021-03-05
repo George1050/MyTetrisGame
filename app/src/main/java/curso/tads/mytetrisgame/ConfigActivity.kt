@@ -12,10 +12,10 @@ class ConfigActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_config)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_config)
 
         val config = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-        dificuldade= config.getString("dificuldade","medio").toString()
+        dificuldade = config.getString("dificuldade","medio").toString()
 
         inserirDificuldadeSelecionada()
 
@@ -42,7 +42,6 @@ class ConfigActivity : AppCompatActivity() {
 
     override fun onStop(){
         super.onStop()
-
         val config =getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         val editor = config.edit()
         editor.putString("dificuldade",dificuldade).apply()
@@ -65,7 +64,6 @@ class ConfigActivity : AppCompatActivity() {
                     facil.isChecked = false
                     medio.isChecked = true
                     dificil.isChecked = false
-
                 }
             }
         }

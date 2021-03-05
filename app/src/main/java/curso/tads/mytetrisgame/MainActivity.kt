@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding.novo.setOnClickListener {
             val i = Intent(this, GameActivity::class.java)
             i.putExtra("continuar", false)
+            setResult(Activity.RESULT_CANCELED)
             startActivity(i)
         }
 
