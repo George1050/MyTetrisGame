@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2b2b2b"
+        android:background="@drawable/fundo2"
         tools:context=".ConfigActivity">
 
         <TextView
@@ -70,6 +70,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="14dp"
             android:text="@string/confimar"
+            app:backgroundTint="#FFFF8800"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/cancelar"
             app:layout_constraintStart_toStartOf="@+id/radioGroup"
@@ -82,6 +83,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginBottom="14dp"
             android:text="@string/cancelar"
+            app:backgroundTint="#FFFF8800"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/radioGroup"
             app:layout_constraintStart_toEndOf="@+id/confirmar"

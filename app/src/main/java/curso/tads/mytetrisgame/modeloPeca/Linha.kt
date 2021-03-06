@@ -1,11 +1,12 @@
 package curso.tads.mytetrisgame.modeloPeca
 
-class Linha(linha:Int, coluna:Int, var orientacao: Int = 1): Peca(
+class Linha(linha:Int, coluna:Int): Peca(
         Ponto(linha,coluna-2),
         Ponto(linha,coluna-1),
         Ponto(linha,coluna),
         Ponto(linha,coluna+1)
     ) {
+    var orientacao: Int = 1
     override fun rotacionar():Array<Ponto>{
         val p = getPontos()
         when(orientacao){
@@ -33,8 +34,8 @@ class Linha(linha:Int, coluna:Int, var orientacao: Int = 1): Peca(
         return arrayOf()
     }
 
-    override fun setOrietacaPeca(o:Int){
-        when(o){
+    override fun setOrietacaoPeca(){
+        when(orientacao){
             1 -> {
                 orientacao = 2
             }

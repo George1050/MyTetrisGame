@@ -23,7 +23,7 @@ open class Peca(pontoA: Ponto, pontoB: Ponto, pontoC: Ponto, pontoD: Ponto) {
         return arrayOf()
     }
 
-    open fun setOrietacaPeca(o:Int){}
+    open fun setOrietacaoPeca(){}
 
     fun getPontos(): Array<Ponto> {
         return pontos

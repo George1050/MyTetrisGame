@@ -7,7 +7,7 @@
         android:id="@+id/gameoverLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2b2b2b"
+        android:background="@drawable/fundo1"
         android:orientation="vertical"
         tools:context=".GameOverActivity">
 
@@ -25,8 +25,8 @@
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/aclonica"
                 android:text="@string/game_over"
-                android:textColor="#FFFFFF"
-                android:textSize="45sp" />
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="65sp" />
 
             <LinearLayout
                 android:id="@+id/currentPoint"
@@ -38,16 +38,16 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
                     android:text="@string/pontuacao"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="32sp" />
 
                 <TextView
                     android:id="@+id/pontos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
                     android:text="@string/pontos"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="32sp" />
             </LinearLayout>
 
@@ -62,17 +62,17 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
                     android:layout_marginEnd="10dp"
                     android:text="@string/record"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="32sp" />
 
                 <TextView
                     android:id="@+id/ultimo_recorde"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
                     android:text="@string/record_pontos"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="32sp" />
             </LinearLayout>
 
@@ -87,8 +87,8 @@
                     android:id="@+id/novo_record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
                     android:text="@string/novo_record"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="32sp" />
 
             </LinearLayout>
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aclonica"
                 android:text="@string/titulo"
-                android:textColor="#FFFFFF"
+                android:textColor="#FFFF8800"
                 android:textSize="74sp" />
 
             <Button
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/novo_jogo"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFF8800" />
 
             <Button
                 android:id="@+id/sair"
@@ -125,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sair"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFF8800" />
         </LinearLayout>
 
     </LinearLayout>

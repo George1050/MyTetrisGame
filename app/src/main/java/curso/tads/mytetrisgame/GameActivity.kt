@@ -110,12 +110,13 @@ class GameActivity : AppCompatActivity() {
                     when {
                         topo(gameViewModel.peca.getPontos()) -> {
                             this.jogando = false
-                            intent = Intent(this, GameOverActivity::class.java)
+                            val i = Intent(this, GameOverActivity::class.java)
                             val pontos = binding.total.text.toString().toInt()
-                            intent.putExtra("pontuacao", pontos.toString())
+                            i.putExtra("pontuacao", pontos.toString())
                             verificarRecord(pontos)
+                            Toast.makeText(this, "@string/game_over", Toast.LENGTH_SHORT).show()
+                            startActivityForResult(i, 0)
                             finish()
-                            startActivity(intent)
                         }
                         //Se a peça pode descer
                         toDown(gameViewModel.peca.getPontos()) -> {
@@ -187,13 +188,14 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun tipoPeca():Peca{
-        return when((Math.random() * 7).toInt()){
+        return when((Math.random() * 8).toInt()){
             0 -> Quadrado(iniciox, inicioy)
             1 -> Linha(iniciox, inicioy)
             2 -> Triangulo(iniciox, inicioy)
             4 -> LetraLEsquerda(iniciox, inicioy)
-            5 -> LetraSDireita(iniciox, inicioy)
-            6 -> LetraSDireita(iniciox, inicioy)
+            5 -> LetraLDireita(iniciox,inicioy)
+            6 -> LetraSEsquerda(iniciox, inicioy)
+            7 -> LetraSDireita(iniciox, inicioy)
             else -> Quadrado(iniciox, inicioy)
         }
     }
@@ -213,8 +215,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun topo(p: Array<Ponto>):Boolean{
         p.forEach {
-            if(it.x==1 && gameViewModel.tabuleiro[it.x+1][it.y] == 1){
-                Toast.makeText(applicationContext, "Chegou no topo", Toast.LENGTH_SHORT).show()
+            if(it.x==1 && gameViewModel.tabuleiro[it.x+2][it.y] == 1){
                 return true
             }
         }
@@ -267,28 +268,42 @@ class GameActivity : AppCompatActivity() {
                 val pontos = gameViewModel.peca.rotacionar()
                 if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/) {
                     gameViewModel.peca.setPontos(pontos)
-                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as Linha).orientacao)
+                    gameViewModel.peca.setOrietacaoPeca()
                 }
             }
             is Triangulo -> {
                 val pontos = gameViewModel.peca.rotacionar()
                 if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/){
                     gameViewModel.peca.setPontos(pontos)
-                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as Triangulo).orientacao)
+                    gameViewModel.peca.setOrietacaoPeca()
+                }
+            }
+            is LetraSEsquerda -> {
+                val pontos = gameViewModel.peca.rotacionar()
+                if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/){
+                    gameViewModel.peca.setPontos(pontos)
+                    gameViewModel.peca.setOrietacaoPeca()
                 }
             }
             is LetraSDireita -> {
                 val pontos = gameViewModel.peca.rotacionar()
                 if(toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/){
                     gameViewModel.peca.setPontos(pontos)
-                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as LetraSDireita).orientacao)
+                    gameViewModel.peca.setOrietacaoPeca()
                 }
             }
             is LetraLEsquerda -> {
                 val pontos = gameViewModel.peca.rotacionar()
                 if (toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/) {
                     gameViewModel.peca.setPontos(pontos)
-                    gameViewModel.peca.setOrietacaPeca((gameViewModel.peca as LetraLEsquerda).orientacao)
+                    gameViewModel.peca.setOrietacaoPeca()
+                }
+            }
+            is LetraLDireita -> {
+                val pontos = gameViewModel.peca.rotacionar()
+                if (toLeft(pontos) && toRight(pontos)/* && toDown(pontos)*/) {
+                    gameViewModel.peca.setPontos(pontos)
+                    gameViewModel.peca.setOrietacaoPeca()
                 }
             }
         }
